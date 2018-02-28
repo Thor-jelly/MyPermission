@@ -16,7 +16,7 @@ dependencies {
 ```
 
 # Android 6.0权限申请框架搭建
-> 有不足之处请联系745661590@qq.com
+> 有不足之处请联系745661590@qq.com  
 > 反射加注解的方式  
 > 仿[PermissionsDispatcher](https://github.com/permissions-dispatcher/PermissionsDispatcher)一个好用的权限请求框架
 
