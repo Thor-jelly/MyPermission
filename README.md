@@ -1,5 +1,20 @@
-# MyPermission
+# [MyPermission](https://github.com/Thor-jelly/MyPermission)
 Android 6.0权限申请框架
+
+[![GitHub release](https://img.shields.io/badge/release-v1.0.0-green.svg)](https://github.com/Thor-jelly/MyPermission/releases)
+
+```
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+dependencies {
+    compile 'com.github.Thor-jelly:MyPermission:v1.0.0'
+}
+```
+
 # Android 6.0权限申请框架搭建
 > 有不足之处请联系745661590@qq.com
 > 反射加注解的方式  
