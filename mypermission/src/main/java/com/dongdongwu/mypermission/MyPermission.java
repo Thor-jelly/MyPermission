@@ -6,8 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
+
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AlertDialog;
 
 import java.util.List;
 
@@ -112,8 +113,7 @@ public class MyPermission {
             //通过反射执行方法(activity 或 fragment 中的方法)
             //因为方法不确定，所以采用注解的方式给方法打一个标记
             //然后通过反射去执行。
-            MyPermissionUtils.exectueSuccessMethod(mObject, mRequestCode);
-            return;
+            MyPermissionUtils.executeSuccessMethod(mObject, mRequestCode);
         } else {
             //2-如果是就请求权限之类的操作
             //获取权限中是否有还未授予的权限
@@ -121,7 +121,7 @@ public class MyPermission {
 
             //如果deniedPermissions为null表示都是授权过的直接执行成功方法
             if (deniedPermissions == null) {
-                MyPermissionUtils.exectueSuccessMethod(mObject, mRequestCode);
+                MyPermissionUtils.executeSuccessMethod(mObject, mRequestCode);
                 return;
             }
 
@@ -139,19 +139,21 @@ public class MyPermission {
     public static void onRequestPermissionsResult(Activity activity, int requestCode, String[] permissions, int[] grantResults) {
         onRequestPermissionsResultMethod(activity, requestCode, permissions, grantResults);
     }
+
     /**
      * 重新请求权限走的方法
      */
     public static void onRequestPermissionsResult(Fragment fragment, int requestCode, String[] permissions, int[] grantResults) {
         onRequestPermissionsResultMethod(fragment, requestCode, permissions, grantResults);
     }
+
     /**
      * 重新请求权限走的方法
      */
     private static void onRequestPermissionsResultMethod(Object object, int requestCode, String[] permissions, int[] grantResults) {
         //再次获取没有获取的权限
         if (!MyPermissionUtils.isSDKVersionOverM()) {
-            MyPermissionUtils.exectueSuccessMethod(object, requestCode);
+            MyPermissionUtils.executeSuccessMethod(object, requestCode);
             return;
         } else {
             //如果deniedPermissions为null表示都是授权过的直接执行成功方法
@@ -159,17 +161,17 @@ public class MyPermission {
             if (notAskAgainList != null) {
                 //showDialogTipUserGoToAppSettting(object, notAskAgainList.get(0), requestCode);
                 //用户点了don't ask againt
-                MyPermissionUtils.exectueNotAskAgainMethod(object, requestCode, notAskAgainList);
+                MyPermissionUtils.executeNotAskAgainMethod(object, requestCode, notAskAgainList);
                 return;
             } else {
                 //
                 List<String> deniedPermissions = MyPermissionUtils.getDeniedPermissions(object, permissions);
                 if (deniedPermissions == null) {
-                    MyPermissionUtils.exectueSuccessMethod(object, requestCode);
+                    MyPermissionUtils.executeSuccessMethod(object, requestCode);
                     return;
                 } else {
                     //申请权限用户拒绝
-                    MyPermissionUtils.exectueFailureMethod(object, requestCode);
+                    MyPermissionUtils.executeFailureMethod(object, requestCode);
                     return;
                 }
             }
@@ -182,17 +184,19 @@ public class MyPermission {
     public static void showDialogTipUserGoToAppSettting(final Activity activity, final int requestCode, List<String> titles) {
         showDialogTipUserGoToAppSetttingMethod(activity, requestCode, titles);
     }
+
     /**
      * 提示用户去应用设置界面手动开启权限
      */
     public static void showDialogTipUserGoToAppSettting(final Fragment fragment, final int requestCode, List<String> titles) {
         showDialogTipUserGoToAppSetttingMethod(fragment, requestCode, titles);
     }
+
     private static void showDialogTipUserGoToAppSetttingMethod(final Object object, final int requestCode, List<String> titles) {
         StringBuilder sb = new StringBuilder("");
         if (titles != null && titles.size() > 0) {
             for (String title : titles) {
-                sb.append("\u3000\u3000"+title+"\n");
+                sb.append("\u3000\u3000" + title + "\n");
             }
         }
         // 跳转到应用设置界面
@@ -210,10 +214,11 @@ public class MyPermission {
                 .setNegativeButton("不同意", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MyPermissionUtils.exectueFailureMethod(object, requestCode);
+                        MyPermissionUtils.executeFailureMethod(object, requestCode);
                     }
                 }).setCancelable(false).show();
     }
+
     // 跳转到当前应用的设置界面
     private static void goToAppSetting(Activity activity) {
         Intent intent = new Intent();

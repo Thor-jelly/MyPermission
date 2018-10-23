@@ -1,7 +1,7 @@
 # [MyPermission](https://github.com/Thor-jelly/MyPermission)
 Android 6.0权限申请框架
 
-[![GitHub release](https://img.shields.io/badge/release-v1.0.1-green.svg)](https://github.com/Thor-jelly/MyPermission/releases)
+[![GitHub release](https://img.shields.io/badge/release-v1.0.2-green.svg)](https://github.com/Thor-jelly/MyPermission/releases)
 
 ```
 allprojects {
